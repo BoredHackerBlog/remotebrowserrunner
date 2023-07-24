@@ -1,0 +1,18 @@
+<h1>RemoteBrowser</h1>
+<p>Available Image</p>
+
+<table style="width:100%" border=1>
+    {% for image in images %}
+    <tr>
+    <td>{{ image }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<form method="post">
+    <p>Type Image</p>
+    <input type="text" id="image" name="image" size="100"><br>
+    <br>
+    <input type="submit" value="Submit">
+</form>
+<p></p>

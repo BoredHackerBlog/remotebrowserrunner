@@ -1,0 +1,29 @@
+services:
+    #redis for task queueing 
+    redis:
+        image: redis:latest
+
+    #this takes the tasks and actually does them
+    worker:
+        build: ./worker
+        image: worker
+        command: rqworker --with-scheduler -u redis://redis:6379
+        volumes:
+          # running 'echo $DOCKER_HOST' should give the right .sock file location
+          - /run/user/1000/docker.sock:/var/run/docker.sock
+
+    #reverse proxy / entry
+    caddy:
+        image: caddy
+        ports:
+            - "8888:8888"
+        volumes:
+            - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+
+    #webapp
+    app:
+        build: ./app
+        image: app
+        command: gunicorn --workers 4 --bind 0.0.0.0:5000 app:app
+        environment:
+            - REDIS_SERVER=redis

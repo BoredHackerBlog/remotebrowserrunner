@@ -1,0 +1,8 @@
+:8888
+
+reverse_proxy / app:5000
+reverse_proxy /web* {http.request.cookie.hostname}-browser:3000
+
+basicauth * {
+	admin JDJhJDA0JHMxNEIvVjhsZUUxSU5JaFROYTVaVWVFenQyL2ZyOFRpSTVhdmJ6T0V0MVhVMHQzV3I0R25H #changeme by default
+}
