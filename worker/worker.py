@@ -10,7 +10,7 @@ def create_container(image_name, uuid):
         "TZ": "Etc/UTC",
         "SUBFOLDER": "/webtop/"
     }
-    shm_size = "1gb"
+    shm_size = "2gb"
     network = "remotebrowsers_default"
     container = client.containers.run(
         image,
