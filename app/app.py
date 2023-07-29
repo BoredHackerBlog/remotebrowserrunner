@@ -1,5 +1,5 @@
 IMAGES=["lscr.io/linuxserver/firefox:latest"]
-CONTAINER_TIME_SECONDS=30
+CONTAINER_TIME_SECONDS=180
 
 import os
 from uuid import uuid4
