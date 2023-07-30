@@ -1,10 +1,11 @@
 IMAGES=["lscr.io/linuxserver/firefox:latest"]
 CONTAINER_TIME_SECONDS=180
+CONTAINER_LIMIT=2
 
 import os
 from uuid import uuid4
 from datetime import timedelta
-
+from time import sleep
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
@@ -32,8 +33,14 @@ def index():
          if request.form['image']:
              image_name = request.form['image'].strip()
              if image_name in IMAGES:
-                 container_id = setup_container(image_name)
-                 return render_template("container.html", container_id=container_id.split('-browser')[0])
+                 count_job = q.enqueue('worker.browser_count')
+                 sleep(3)
+                 container_count = count_job.return_value()
+                 if container_count < CONTAINER_LIMIT:
+                     container_id = setup_container(image_name)
+                     return render_template("container.html", container_id=container_id.split('-browser')[0])
+                 else:
+                     return "Too many containers running currently. Try again later"
 
 if __name__ == '__main__':
     app.run(debug=False)
