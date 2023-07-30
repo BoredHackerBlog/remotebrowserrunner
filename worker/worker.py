@@ -2,6 +2,16 @@ import docker
 
 client = docker.DockerClient(base_url='unix://var/run/docker.sock')
 
+def browser_count():
+    running_containers = client.containers.list()
+    count = 0
+
+    for container in running_containers:
+        if "-browser" in container.name:
+            count += 1
+
+    return count
+
 def create_container(image_name, uuid):
     image = image_name
     environment = {
@@ -11,7 +21,7 @@ def create_container(image_name, uuid):
         "SUBFOLDER": "/webtop/"
     }
     shm_size = "2gb"
-    network = "remotebrowsers_default"
+    network = "remotebrowserrunner_default"
     container = client.containers.run(
         image,
         detach=True,
