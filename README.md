@@ -20,8 +20,8 @@ The code and architecture can be redesigned. Also you can use gluetun container 
 - docker-compose.yaml - you can modify this to add gluetun container for VPN. Caddy port (entry to this network, default 8888) can be modified here too. 
 Additionally, modify path to docker.sock, if you have rootless docker, your path may look similar to the default one. 
 - app.py - This is where you can add more images. see https://fleet.linuxserver.io/ & https://hub.docker.com/u/kasmweb for other images, or build your own.
-You can also define CONTAINER_TIME_SECONDS to define when the container gets shut down and removed.
-- worker.py - browser container options can be modified in here. network should match the network caddy container is running in
+You can also define CONTAINER_TIME_SECONDS to define when the container gets shut down and removed. CONTAINER_LIMIT can be defined to make sure only a certain amount of containers can be ran.
+- worker.py - browser container options can be modified in here. network should match the network caddy container is running in (`docker network ls` should return network names)
 - Caddyfile - Basic auth & reverse proxy options can be modified here, if needed.
 
 ## Running
@@ -31,7 +31,6 @@ You can also define CONTAINER_TIME_SECONDS to define when the container gets shu
 - visit yourip:8888, login with admin/changeme and use the webui to request a container
 
 ## modifications
-- You can change worker.py and add code to make sure a limited number of containers can run
 - app.py, html templates, and worker.py can be modified so you can let the user define how long they need the container for and also pass other variables (URL, proxy, etc...)
 - You may be able to have multiple gluetun network and have the container join 2 diff networks (one with caddy & one with gluetun) (untested)
 - app.py, html templates, and worker.py can be modified to let the user start/stop container instead of doing time-based stop (or in addition to)
