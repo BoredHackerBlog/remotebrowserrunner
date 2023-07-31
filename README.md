@@ -38,7 +38,7 @@ You can also define CONTAINER_TIME_SECONDS to define when the container gets shu
 ## security & other issues
 - Change password in Caddyfile from changeme to something else...
 - There is no user management, access to container is based on cookie. container name is COOKIE-browser and you're redirected to the container by reverse proxy based on the cookie.
-- container can access other containers, this can be addressed by randomizing the SUBFOLDER in worker.py and ensuring that the user is redirected to the right path (requires modifying app.py & container.html)
+- container can access other containers - threat actor can access worker, redis, app, other containers if they know how to
 - There is copy & paste for text but no file upload/download.
 - There isn't much logging but it can be turned on by modifying Caddyfile and Gunicorn command. The logs can be collected from file or docker output.
 - Probably let trusted users access this
