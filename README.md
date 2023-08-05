@@ -41,5 +41,4 @@ You can also define CONTAINER_TIME_SECONDS to define when the container gets shu
 - container can access other containers - threat actor can access worker, redis, app, other containers if they know how to
 - There is copy & paste for text but no file upload/download.
 - There isn't much logging but it can be turned on by modifying Caddyfile and Gunicorn command. The logs can be collected from file or docker output.
-- Probably let trusted users access this
-
+- Probably let trusted users access this. due to the way infrastructure is setup by default, it is possible to do some attacks.
